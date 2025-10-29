@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Required Website Name/Title -->
+    <title>THE THING THAT ALL KNOWINGS MUST SEE</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons for social media/utility icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Ensures the body is explicitly white and uses the Inter font */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            min-height: 150vh; /* Added height for scroll demonstration */
+        }
+
+        /* Styling for the default modal overlay */
+        .modal-overlay-default {
+            background-color: rgba(0, 0, 0, 0.5); 
+            transition: opacity 0.3s ease;
+        }
+
+        /* Styling for the ALL KNOWING modal overlay - Black background requirement */
+        .modal-overlay-black {
+            background-color: #000000; 
+            transition: opacity 0.3s ease;
+        }
+
+        /* Styling for the ALL KNOWING modal content box - Red content box requirement */
+        .modal-content-red {
+            background-color: #e74c3c; /* A strong red */
+            color: white;
+        }
+
+        /* Initial state for the scroll animation: hidden and slightly down */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(2rem); 
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+
+        /* Final state for the scroll animation: visible and in place */
+        .scroll-animate.observed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Ensures the Auth Page uses the required black background */
+        #authPage {
+            background-color: #000000; 
+        }
+    </style>
+</head>
+<body class="bg-white">
+
+    <!-- Header with Title and Navigation/Auth -->
+    <header class="sticky top-0 z-50 bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <!-- Required Website Name/Title & Go to Homepage Functionality -->
+            <button id="goHomepageBtn" class="text-xl sm:text-3xl font-extrabold text-gray-900 tracking-tight hover:text-red-600 transition duration-150 cursor-pointer">
+                THE THING THAT ALL KNOWINGS MUST SEE
+            </button>
+            <nav>
+                <!-- Auth Button: Text changes based on user state -->
+                <button id="authBtn" class="px-4 py-2 rounded-full text-white font-medium transition duration-150 shadow-md">
+                    Sign In
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT AREA (The Feed) -->
+    <div id="mainFeed" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-8">Featured Content Widgets</h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            
+            <!-- WIDGET 1: "ALL KNOWING" - Triggers the red/black modal and shows uploaded content -->
+            <div id="allKnowingWidget" class="widget-card cursor-pointer scroll-animate" data-scroll>
+                <div class="bg-red-600 rounded-xl overflow-hidden shadow-2xl transition-all duration-300 transform hover:scale-[1.03]">
+                    <!-- Placeholder for uploaded content or initial message -->
+                    <div id="allKnowingMedia" class="aspect-video bg-red-700 flex items-center justify-center text-white p-4">
+                        <span class="text-2xl font-black text-center">ALL KNOWING<br>(Click to Upload)</span>
+                    </div>
+                    <div class="p-4 bg-white text-gray-800">
+                        <h3 class="font-bold text-lg mb-1">ALL KNOWING</h3>
+                        <p class="text-sm text-gray-500 line-clamp-2">Specialized upload portal.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Mock Widgets (Scroll Animation Enabled) -->
+            <div class="widget-card scroll-animate" data-scroll data-delay="100">
+                <div class="bg-gray-50 border border-gray-100 rounded-xl overflow-hidden shadow-lg">
+                    <div class="aspect-video bg-gray-200 flex items-center justify-center text-gray-500">
+                        <span class="text-xl font-medium">Mock Video</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-1">Widget - Tech Review</h3>
+                        <p class="text-sm text-gray-500 line-clamp-2">Latest piece of hardware for the knowing.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="widget-card scroll-animate" data-scroll data-delay="200">
+                <div class="bg-gray-50 border border-gray-100 rounded-xl overflow-hidden shadow-lg">
+                    <div class="aspect-square bg-gray-300 flex items-center justify-center text-gray-600">
+                        <span class="text-xl font-medium">Mock Image</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-1">Widget - Fashion Insight</h3>
+                        <p class="text-sm text-gray-500 line-clamp-2">Deep dive into current trends and styles.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget-card scroll-animate" data-scroll data-delay="300">
+                <div class="bg-gray-50 border border-gray-100 rounded-xl overflow-hidden shadow-lg">
+                    <div class="aspect-video bg-gray-200 flex items-center justify-center text-gray-500">
+                        <span class="text-xl font-medium">Mock Video</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-1">Widget - Lore Breakdown</h3>
+                        <p class="text-sm text-gray-500 line-clamp-2">Explaining complex concepts clearly.</p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- SIGN IN/UP PAGE (Required Black/White Theme) -->
+    <div id="authPage" class="hidden fixed inset-0 z-40 items-center justify-center p-4">
+        
+        <!-- Black/White Themed Container -->
+        <div class="bg-gray-900 text-white rounded-xl shadow-2xl p-8 max-w-md w-full">
+            <h2 class="text-3xl font-bold mb-6 text-center">Sign Up / Sign In</h2>
+            
+            <!-- Signed In Status Display (Vertical Form, White Text on Black BG) -->
+            <div id="authStatus" class="mb-6 hidden">
+                <p class="text-center text-lg font-semibold border-b border-gray-700 pb-3">
+                    SIGNED IN USING THIS ACCOUNT
+                </p>
+                <div class="mt-3 text-center space-y-2">
+                    <p class="font-medium text-red-400" id="statusUsername"></p>
+                    <p class="text-sm text-gray-400" id="statusEmail"></p>
+                    <p class="text-sm text-gray-400" id="statusName"></p>
+                </div>
+            </div>
+
+            <!-- Sign Up Form (Vertical Form) -->
+            <form id="signUpForm" class="space-y-4">
+                <input type="text" id="name" placeholder="Name" required class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:ring-red-500 focus:border-red-500">
+                <input type="text" id="username" placeholder="Username" required class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:ring-red-500 focus:border-red-500">
+                <input type="email" id="email" placeholder="Email" required class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:ring-red-500 focus:border-red-500">
+                <button type="submit" class="w-full py-3 bg-red-600 rounded-lg font-bold hover:bg-red-700 transition duration-150">
+                    Create New Account
+                </button>
+            </form>
+
+            <div class="my-6 flex items-center">
+                <hr class="flex-grow border-gray-700">
+                <span class="mx-4 text-gray-400 text-sm">OR SIGN IN WITH</span>
+                <hr class="flex-grow border-gray-700">
+            </div>
+
+            <!-- Social Sign-in Icons (Vertical Form) -->
+            <div class="space-y-3">
+                <button class="w-full flex items-center justify-center p-3 rounded-lg border border-gray-700 hover:bg-gray-800 transition duration-150">
+                    <i data-lucide="mail" class="w-5 h-5 mr-3 text-red-500"></i>
+                    Sign In with Google
+                </button>
+                <button class="w-full flex items-center justify-center p-3 rounded-lg border border-gray-700 hover:bg-gray-800 transition duration-150">
+                    <i data-lucide="facebook" class="w-5 h-5 mr-3 text-blue-500"></i>
+                    Sign In with Facebook
+                </button>
+                <button class="w-full flex items-center justify-center p-3 rounded-lg border border-gray-700 hover:bg-gray-800 transition duration-150">
+                    <i data-lucide="github" class="w-5 h-5 mr-3 text-gray-300"></i>
+                    Sign In with GitHub
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- FLOATING BUTTON (Positioned to the Left) -->
+    <button id="openDefaultModalBtn" 
+        class="fixed top-1/2 -translate-y-1/2 left-4 md:left-8 w-16 h-16 
+               bg-emerald-500 text-white text-4xl font-light 
+               rounded-full shadow-2xl hover:bg-emerald-600 
+               focus:outline-none focus:ring-4 focus:ring-emerald-300 
+               transition-all duration-300 z-20">
+        +
+    </button>
+
+    <!-- MODAL 1: DEFAULT UPLOAD (For Floating Button) -->
+    <div id="defaultUploadModal" 
+         class="modal-overlay-default fixed inset-0 z-30 hidden items-center justify-center opacity-0"
+         aria-modal="true" 
+         role="dialog">
+        
+        <div class="bg-white p-8 rounded-xl shadow-2xl max-w-sm w-full mx-4 transform scale-95 transition-transform duration-300">
+            <div class="flex justify-between items-start mb-4">
+                <h3 class="text-2xl font-bold text-gray-800">New Content Upload</h3>
+                <button data-close-modal="default" class="text-gray-400 hover:text-gray-600 text-3xl leading-none">
+                    &times;
+                </button>
+            </div>
+            
+            <!-- REQUIRED MESSAGE -->
+            <p class="text-xl font-semibold text-center py-8 border-2 border-dashed border-gray-300 bg-gray-50 rounded-lg text-gray-700">
+                UPLOAD A FILE HERE, THE MAXIMUM MB IS 500MB
+            </p>
+
+            <button class="mt-4 w-full py-3 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition duration-150">
+                Select Standard File
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL 2: "ALL KNOWING" UPLOAD (For Widget Click) -->
+    <div id="allKnowingModal" 
+         class="modal-overlay-black fixed inset-0 z-30 hidden items-center justify-center opacity-0"
+         aria-modal="true" 
+         role="dialog">
+        
+        <!-- Modal Content Box: Red Content Box Requirement -->
+        <div class="modal-content-red p-8 rounded-xl shadow-2xl max-w-sm w-full mx-4 transform scale-95 transition-transform duration-300">
+            <div class="flex justify-between items-start mb-4">
+                <h3 class="text-2xl font-bold">ALL KNOWING UPLOAD</h3>
+                <button data-close-modal="all-knowing" class="text-white hover:text-gray-200 text-3xl leading-none">
+                    &times;
+                </button>
+            </div>
+            
+            <!-- REQUIRED MESSAGE -->
+            <p class="text-xl font-black text-center py-8 border-2 border-dashed border-white bg-red-700/50 rounded-lg">
+                UPLOAD FILE HERE 500MB MAX
+            </p>
+            
+            <!-- File Input -->
+            <input type="file" id="allKnowingFileInput" class="mt-4 w-full p-2 border border-white rounded-lg bg-red-600 text-white placeholder-white/80" accept="video/*,image/*" />
+            <p id="fileError" class="text-sm mt-2 text-yellow-200 hidden">Error: File exceeds 500MB limit.</p>
+
+            <button id="uploadFileBtn" class="mt-4 w-full py-3 bg-white text-red-600 rounded-lg font-bold hover:bg-red-100 transition duration-150">
+                Upload
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // --- GLOBAL STATE ---
+        let signedInUser = null; // null or { name, username, email }
+        let currentView = 'feed'; // 'feed' or 'auth'
+        let allKnowingFile = null; // Stores the URL/data for the uploaded file
+
+        // --- CONSTANTS & DOM REFERENCES ---
+        const DURATION = 300; 
+        const MAX_MB = 500;
+        const MAX_BYTES = MAX_MB * 1024 * 1024;
+
+        // Modals
+        const defaultUploadModal = document.getElementById('defaultUploadModal');
+        const allKnowingModal = document.getElementById('allKnowingModal');
+
+        // Main Views
+        const mainFeed = document.getElementById('mainFeed');
+        const authPage = document.getElementById('authPage');
+        
+        // Header
+        const goHomepageBtn = document.getElementById('goHomepageBtn');
+        const authBtn = document.getElementById('authBtn');
+        
+        // All Knowing Widget
+        const allKnowingWidget = document.getElementById('allKnowingWidget');
+        const allKnowingMedia = document.getElementById('allKnowingMedia');
+        const allKnowingFileInput = document.getElementById('allKnowingFileInput');
+        const uploadFileBtn = document.getElementById('uploadFileBtn');
+        const fileError = document.getElementById('fileError');
+        
+        // Auth Page elements
+        const signUpForm = document.getElementById('signUpForm');
+        const authStatus = document.getElementById('authStatus');
+        const statusUsername = document.getElementById('statusUsername');
+        const statusEmail = document.getElementById('statusEmail');
+        const statusName = document.getElementById('statusName');
+
+        // --- CORE FUNCTIONS ---
+
+        /**
+         * Generic function to open a modal with animation.
+         * @param {HTMLElement} modal - The modal element to open.
+         */
+        function openModal(modal) {
+            const content = modal.querySelector('div:nth-child(1)');
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling background
+            
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.classList.add('opacity-100');
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            }, 10);
+        }
+
+        /**
+         * Generic function to close a modal with animation.
+         * @param {HTMLElement} modal - The modal element to close.
+         */
+        function closeModal(modal) {
+            const content = modal.querySelector('div:nth-child(1)');
+            
+            modal.classList.remove('opacity-100');
+            modal.classList.add('opacity-0');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+
+            setTimeout(() => {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+                document.body.style.overflow = ''; // Restore scrolling
+            }, DURATION);
+        }
+
+        /**
+         * Toggles the main view between the Feed and the Auth Page.
+         * This function handles the "GO TO HOMEPAGE" requirement.
+         * @param {string} view - 'feed' or 'auth'.
+         */
+        function switchView(view) {
+            currentView = view;
+            window.scrollTo(0, 0); 
+
+            if (view === 'auth') {
+                // Show Auth Page, Hide Feed
+                mainFeed.classList.add('hidden');
+                authPage.classList.remove('hidden');
+                authPage.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            } else {
+                // Show Feed, Hide Auth Page
+                mainFeed.classList.remove('hidden');
+                authPage.classList.add('hidden');
+                authPage.style.display = 'none';
+                document.body.style.overflow = '';
+                // Rerun scroll animation check for a smooth re-entry to the feed
+                document.querySelectorAll('.scroll-animate').forEach(widget => {
+                    widget.classList.remove('observed');
+                    widget.dataset.observed = 'false';
+                    observer.observe(widget);
+                });
+            }
+        }
+
+        /**
+         * Updates the UI based on the signedInUser state (Sign In / Log Out).
+         */
+        function updateAuthUI() {
+            if (signedInUser) {
+                // Logged In State
+                authBtn.textContent = 'Log Out';
+                authBtn.className = 'px-4 py-2 rounded-full text-white font-medium transition duration-150 shadow-md bg-red-600 hover:bg-red-700';
+                
+                // Update status display on the Auth page
+                authStatus.classList.remove('hidden');
+                signUpForm.classList.add('hidden');
+                statusUsername.textContent = `Username: ${signedInUser.username}`;
+                statusEmail.textContent = `Email: ${signedInUser.email}`;
+                statusName.textContent = `Name: ${signedInUser.name}`;
+            } else {
+                // Logged Out State
+                authBtn.textContent = 'Sign In';
+                authBtn.className = 'px-4 py-2 rounded-full text-white font-medium transition duration-150 shadow-md bg-emerald-500 hover:bg-emerald-600';
+                
+                // Reset Auth page
+                authStatus.classList.add('hidden');
+                signUpForm.classList.remove('hidden');
+                signUpForm.reset();
+            }
+        }
+
+        /**
+         * Updates the "ALL KNOWING" widget with uploaded media or a placeholder.
+         */
+        function updateAllKnowingWidget() {
+            allKnowingMedia.innerHTML = '';
+            // Reset base classes
+            allKnowingMedia.className = 'aspect-video bg-red-700 flex items-center justify-center text-white p-4'; 
+
+            if (allKnowingFile) {
+                // If a file is uploaded, display it
+                let mediaElement;
+                if (allKnowingFile.mimeType.startsWith('video/')) {
+                    mediaElement = `<video controls autoplay loop class="w-full h-full object-cover" src="${allKnowingFile.url}"></video>`;
+                } else if (allKnowingFile.mimeType.startsWith('image/')) {
+                    mediaElement = `<img class="w-full h-full object-cover" src="${allKnowingFile.url}" alt="Uploaded Media">`;
+                }
+                allKnowingMedia.innerHTML = mediaElement;
+                allKnowingMedia.classList.remove('bg-red-700'); 
+                allKnowingMedia.classList.add('bg-black'); // Black background behind media
+            } else {
+                // Show default placeholder
+                allKnowingMedia.innerHTML = `<span class="text-2xl font-black text-center">ALL KNOWING<br>(Click to Upload)</span>`;
+            }
+        }
+
+
+        // --- EVENT LISTENERS ---
+
+        // 1. Floating '+' Button (Opens Modal 1)
+        document.getElementById('openDefaultModalBtn').addEventListener('click', () => {
+            openModal(defaultUploadModal);
+        });
+
+        // 2. "ALL KNOWING" Widget (Opens Modal 2)
+        allKnowingWidget.addEventListener('click', () => {
+            openModal(allKnowingModal);
+        });
+
+        // 3. Close Modal handlers (for 'X' and overlay clicks)
+        document.addEventListener('click', (event) => {
+            // Close button handler
+            if (event.target.dataset.closeModal === 'default') {
+                closeModal(defaultUploadModal);
+            }
+            if (event.target.dataset.closeModal === 'all-knowing') {
+                closeModal(allKnowingModal);
+            }
+            // Overlay click handler
+            if (event.target === defaultUploadModal) {
+                closeModal(defaultUploadModal);
+            }
+            if (event.target === allKnowingModal) {
+                closeModal(allKnowingModal);
+            }
+        });
+
+        // 4. Auth Button (Sign In / Log Out)
+        authBtn.addEventListener('click', () => {
+            if (signedInUser) {
+                // Log Out
+                signedInUser = null;
+                updateAuthUI();
+                // If the user was on the Auth page, move them back to the feed
+                if (currentView === 'auth') {
+                    switchView('feed');
+                }
+            } else {
+                // Sign In / Sign Up
+                switchView('auth');
+            }
+        });
+        
+        // 5. Go to Homepage Button (The Title)
+        goHomepageBtn.addEventListener('click', () => {
+            switchView('feed');
+        });
+
+        // 6. Sign Up Form Submission
+        signUpForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Mock account creation (just storing the data)
+            signedInUser = {
+                name: document.getElementById('name').value,
+                username: document.getElementById('username').value,
+                email: document.getElementById('email').value
+            };
+            
+            updateAuthUI();
+        });
+
+        // 7. All Knowing File Input Validation
+        allKnowingFileInput.addEventListener('change', () => {
+            const file = allKnowingFileInput.files[0];
+            fileError.classList.add('hidden'); // Reset error state
+
+            if (file && file.size > MAX_BYTES) {
+                // Handle size limit (500MB max)
+                fileError.classList.remove('hidden');
+                uploadFileBtn.disabled = true;
+                uploadFileBtn.classList.add('opacity-50');
+            } else {
+                uploadFileBtn.disabled = false;
+                uploadFileBtn.classList.remove('opacity-50');
+            }
+        });
+
+        // 8. All Knowing Upload Button Click
+        uploadFileBtn.addEventListener('click', () => {
+            const file = allKnowingFileInput.files[0];
+            
+            if (file && !uploadFileBtn.disabled) {
+                // Process and display the file
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    allKnowingFile = {
+                        url: e.target.result,
+                        mimeType: file.type
+                    };
+                    updateAllKnowingWidget();
+                    closeModal(allKnowingModal);
+                    // Clear the file input
+                    allKnowingFileInput.value = '';
+                };
+                reader.readAsDataURL(file); // Converts file to a data URL for display
+            } else {
+                // Optionally show error if button is clicked but no valid file is ready
+                if (!file) fileError.textContent = "Error: Please select a file first.";
+                fileError.classList.remove('hidden');
+            }
+        });
+        
+        // --- INITIALIZATION ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons(); // Initialize Lucide Icons
+            updateAuthUI();
+            updateAllKnowingWidget(); // Ensure the widget is ready
+        });
+        
+        // SCROLL ANIMATION LOGIC (Intersection Observer)
+        const observerOptions = {
+            root: null, 
+            rootMargin: '0px',
+            threshold: 0.1 
+        };
+
+        const observerCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                const target = entry.target;
+                const delay = parseInt(target.dataset.delay || 0);
+                
+                if (entry.isIntersecting && target.dataset.observed !== 'true') {
+                    // Slight delay to create the "delaying effects" illusion
+                    setTimeout(() => {
+                        target.classList.add('observed');
+                        target.dataset.observed = 'true'; 
+                    }, delay);
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+        document.querySelectorAll('.scroll-animate').forEach(widget => {
+            // Initial setting to ensure the observer runs again if view is switched
+            widget.dataset.observed = 'false';
+            observer.observe(widget);
+        });
+    </script>
+</body>
+</html>
